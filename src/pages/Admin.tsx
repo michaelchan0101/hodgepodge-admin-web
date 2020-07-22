@@ -1,7 +1,7 @@
-import React from 'react';
-import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
-import { Card, Typography, Alert } from 'antd';
-import { PageContainer } from '@ant-design/pro-layout';
+import React from 'react'
+import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons'
+import { Card, Typography, Alert } from 'antd'
+import { PageContainer } from '@ant-design/pro-layout'
 
 export default (): React.ReactNode => (
   <PageContainer content=" 这个页面只有 admin 权限才能查看">
@@ -22,10 +22,14 @@ export default (): React.ReactNode => (
     </Card>
     <p style={{ textAlign: 'center', marginTop: 24 }}>
       Want to add more pages? Please refer to{' '}
-      <a href="https://pro.ant.design/docs/block-cn" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://pro.ant.design/docs/block-cn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         use block
       </a>
       。
     </p>
   </PageContainer>
-);
+)

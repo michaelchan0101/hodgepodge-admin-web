@@ -15,7 +15,8 @@ export default {
   'app.settings.basic.country': 'País/Região',
   'app.settings.basic.country-message': 'Por favor insira país!',
   'app.settings.basic.geographic': 'Província, estado ou cidade',
-  'app.settings.basic.geographic-message': 'Por favor insira suas informações geográficas!',
+  'app.settings.basic.geographic-message':
+    'Por favor insira suas informações geográficas!',
   'app.settings.basic.address': 'Endereço',
   'app.settings.basic.address-message': 'Por favor insira seu endereço!',
   'app.settings.basic.phone': 'Número de telefone',
@@ -44,7 +45,8 @@ export default {
   'app.settings.binding.alipay': 'Vincular Alipay',
   'app.settings.binding.alipay-description': 'Atualmente não vinculado à conta Alipay',
   'app.settings.binding.dingding': 'Vincular DingTalk',
-  'app.settings.binding.dingding-description': 'Atualmente não vinculado à conta DingTalk',
+  'app.settings.binding.dingding-description':
+    'Atualmente não vinculado à conta DingTalk',
   'app.settings.binding.bind': 'Vincular',
   'app.settings.notification.password': 'Senha da Conta',
   'app.settings.notification.password-description':
@@ -57,4 +59,4 @@ export default {
     'A lista de to-do será notificada na forma de uma estação de letra',
   'app.settings.open': 'Aberto',
   'app.settings.close': 'Fechado',
-};
+}

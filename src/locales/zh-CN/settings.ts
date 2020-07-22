@@ -29,7 +29,8 @@ export default {
   'app.settings.security.phone': '密保手机',
   'app.settings.security.phone-description': '已绑定手机',
   'app.settings.security.question': '密保问题',
-  'app.settings.security.question-description': '未设置密保问题，密保问题可有效保护账户安全',
+  'app.settings.security.question-description':
+    '未设置密保问题，密保问题可有效保护账户安全',
   'app.settings.security.email': '备用邮箱',
   'app.settings.security.email-description': '已绑定邮箱',
   'app.settings.security.mfa': 'MFA 设备',
@@ -52,4 +53,4 @@ export default {
   'app.settings.notification.todo-description': '待办任务将以站内信的形式通知',
   'app.settings.open': '开',
   'app.settings.close': '关',
-};
+}

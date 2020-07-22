@@ -1,25 +1,25 @@
-import React, { useCallback } from 'react';
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Menu, Spin } from 'antd';
-import { ClickParam } from 'antd/es/menu';
-import { history, useModel } from 'umi';
-import { getPageQuery } from '@/utils/utils';
-import { outLogin } from '@/services/login';
+import React, { useCallback } from 'react'
+import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
+import { Avatar, Menu, Spin } from 'antd'
+import { ClickParam } from 'antd/es/menu'
+import { history, useModel } from 'umi'
+import { getPageQuery } from '@/utils/utils'
+import { outLogin } from '@/services/login'
 
-import { stringify } from 'querystring';
-import HeaderDropdown from '../HeaderDropdown';
-import styles from './index.less';
+import { stringify } from 'querystring'
+import HeaderDropdown from '../HeaderDropdown'
+import styles from './index.less'
 
 export interface GlobalHeaderRightProps {
-  menu?: boolean;
+  menu?: boolean
 }
 
 /**
  * 退出登录，并且将当前的 url 保存
  */
 const loginOut = async () => {
-  await outLogin();
-  const { redirect } = getPageQuery();
+  await outLogin()
+  const { redirect } = getPageQuery()
   // Note: There may be security issues, please note
   if (window.location.pathname !== '/user/login' && !redirect) {
     history.replace({
@@ -27,22 +27,22 @@ const loginOut = async () => {
       search: stringify({
         redirect: window.location.href,
       }),
-    });
+    })
   }
-};
+}
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState')
 
   const onMenuClick = useCallback((event: ClickParam) => {
-    const { key } = event;
+    const { key } = event
     if (key === 'logout') {
-      setInitialState({ ...initialState, currentUser: undefined });
-      loginOut();
-      return;
+      setInitialState({ ...initialState, currentUser: undefined })
+      loginOut()
+      return
     }
-    history.push(`/account/${key}`);
-  }, []);
+    history.push(`/account/${key}`)
+  }, [])
 
   const loading = (
     <span className={`${styles.action} ${styles.account}`}>
@@ -54,16 +54,16 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         }}
       />
     </span>
-  );
+  )
 
   if (!initialState) {
-    return loading;
+    return loading
   }
 
-  const { currentUser } = initialState;
+  const { currentUser } = initialState
 
   if (!currentUser || !currentUser.name) {
-    return loading;
+    return loading
   }
 
   const menuHeaderDropdown = (
@@ -87,15 +87,20 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         退出登录
       </Menu.Item>
     </Menu>
-  );
+  )
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+        <Avatar
+          size="small"
+          className={styles.avatar}
+          src={currentUser.avatar}
+          alt="avatar"
+        />
         <span className={`${styles.name} anticon`}>{currentUser.name}</span>
       </span>
     </HeaderDropdown>
-  );
-};
+  )
+}
 
-export default AvatarDropdown;
+export default AvatarDropdown
