@@ -1,28 +1,25 @@
 import React from 'react'
 import { BasicLayoutProps, Settings as LayoutSettings } from '@ant-design/pro-layout'
 import { history } from 'umi'
+import { local } from 'webstorage-utils'
 import RightContent from '@/components/RightContent'
 import Footer from '@/components/Footer'
-import { queryCurrent } from './services/user'
 import defaultSettings from '../config/defaultSettings'
 
 export async function getInitialState(): Promise<{
-  currentUser?: ADMIN.Response
-  settings?: LayoutSettings
+  admin?: ADMIN.Response
+  settings: LayoutSettings
 }> {
   // 如果是登录页面，不执行
+  let admin
   if (history.location.pathname !== '/user/login') {
-    try {
-      const currentUser = await queryCurrent()
-      return {
-        currentUser,
-        settings: defaultSettings,
-      }
-    } catch (error) {
+    admin = local.get('admin')
+    if (!admin) {
       history.push('/user/login')
     }
   }
   return {
+    admin,
     settings: defaultSettings,
   }
 }

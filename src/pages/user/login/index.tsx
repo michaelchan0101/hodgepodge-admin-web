@@ -1,6 +1,7 @@
 import { message } from 'antd'
 import React, { useState } from 'react'
-import { Link, SelectLang, history, useModel } from 'umi'
+import { Link, SelectLang } from 'umi'
+import { local } from 'webstorage-utils'
 import { getPageQuery } from '@/utils/utils'
 import logo from '@/assets/logo.svg'
 import { LoginParamsType, fakeAccountLogin } from '@/services/login'
@@ -29,21 +30,18 @@ const replaceGoto = () => {
       return
     }
   }
-  history.replace(redirect || '/')
+  window.location.href = redirect || '/'
 }
 
 const Login: React.FC<{}> = () => {
   const [submitting, setSubmitting] = useState(false)
 
-  const { refresh } = useModel('@@initialState')
-
   const handleSubmit = async (values: LoginParamsType) => {
     setSubmitting(true)
-    // const { token, admin } = await fakeAccountLogin({ ...values })
-    await fakeAccountLogin({ ...values })
+    const { token, admin } = await fakeAccountLogin({ ...values })
+    local.set('token', token).set('admin', admin)
     message.success('登录成功！')
     replaceGoto()
-    refresh()
     setSubmitting(false)
   }
 

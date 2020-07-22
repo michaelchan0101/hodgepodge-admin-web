@@ -1,8 +1,6 @@
 import { extend, ResponseError } from 'umi-request'
 import { notification } from 'antd'
-import WebStorageUtils from 'webstorage-utils'
-
-const storage = new WebStorageUtils({ storage: 'localStorage' })
+import { local } from 'webstorage-utils'
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -49,7 +47,7 @@ const request = extend({
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
-  headers: { Authorization: storage.get('token'), 'Auth-schema': 'ADMIN' },
+  headers: { Authorization: local.get('token'), 'Auth-schema': 'ADMIN' },
 })
 
 export default request
