@@ -17293,6 +17293,13 @@ websocket-extensions@>=0.1.1:
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
   integrity sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg==
 
+webstorage-utils@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/webstorage-utils/-/webstorage-utils-1.2.1.tgz#22cca4b5d182b2c139a747c6e92c7df085966732"
+  integrity sha512-BtLiEO6gra1h7MMF68Ig2kBcoybETBwdTb5qHpbUgjRA1O8gJICiD/tnDyyMhcuKb06GjyDd0LuUmuld7XjDuQ==
+  dependencies:
+    lodash "^4.17.15"
+
 whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/whatwg-encoding/-/whatwg-encoding-1.0.5.tgz#5abacf777c32166a51d085d6b4f3e7d27113ddb0"
