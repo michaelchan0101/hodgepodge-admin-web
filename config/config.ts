@@ -12,7 +12,7 @@ export default defineConfig({
     hmr: true,
   },
   layout: {
-    name: 'Ant Design Pro',
+    name: 'Zn 大杂烩',
     locale: true,
     siderWidth: 208,
   },
@@ -53,7 +53,6 @@ export default defineConfig({
       path: '/admin',
       name: 'admin',
       icon: 'crown',
-      access: 'canAdmin',
       component: './Admin',
       routes: [
         {
@@ -65,10 +64,10 @@ export default defineConfig({
       ],
     },
     {
-      name: 'list.table-list',
-      icon: 'table',
-      path: '/list',
-      component: './ListTableList',
+      name: 'category',
+      icon: '',
+      path: '/category',
+      component: './Category',
     },
     {
       path: '/',

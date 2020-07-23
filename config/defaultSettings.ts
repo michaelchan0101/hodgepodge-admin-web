@@ -12,7 +12,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: 'Zn 大杂烩',
   pwa: false,
   iconfontUrl: '',
 } as LayoutSettings & {
