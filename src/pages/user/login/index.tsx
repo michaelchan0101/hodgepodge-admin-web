@@ -4,7 +4,7 @@ import { Link, SelectLang } from 'umi'
 import { local } from 'webstorage-utils'
 import { getPageQuery } from '@/utils/utils'
 import logo from '@/assets/logo.svg'
-import { LoginParamsType, fakeAccountLogin } from '@/services/login'
+import { login } from '@/services/login'
 import Footer from '@/components/Footer'
 import LoginFrom from './components/Login'
 import styles from './style.less'
@@ -36,9 +36,9 @@ const replaceGoto = () => {
 const Login: React.FC<{}> = () => {
   const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = async (values: LoginParamsType) => {
+  const handleSubmit = async (values: ADMIN.LoginRequest) => {
     setSubmitting(true)
-    const { token, admin } = await fakeAccountLogin({ ...values })
+    const { token, admin } = await login({ ...values })
     local.set('token', token).set('admin', admin)
     message.success('登录成功！')
     replaceGoto()

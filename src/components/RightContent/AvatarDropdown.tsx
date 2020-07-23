@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react'
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
-import { Avatar, Menu, Spin } from 'antd'
-import { ClickParam } from 'antd/es/menu'
+import { Menu, Spin } from 'antd'
 import { history, useModel } from 'umi'
 import { getPageQuery } from '@/utils/utils'
-import { outLogin } from '@/services/login'
+import { local } from 'webstorage-utils'
 
 import { stringify } from 'querystring'
 import HeaderDropdown from '../HeaderDropdown'
@@ -18,26 +17,23 @@ export interface GlobalHeaderRightProps {
  * 退出登录，并且将当前的 url 保存
  */
 const loginOut = async () => {
-  await outLogin()
   const { redirect } = getPageQuery()
+  local.del('token').del('admin')
   // Note: There may be security issues, please note
   if (window.location.pathname !== '/user/login' && !redirect) {
-    history.replace({
-      pathname: '/user/login',
-      search: stringify({
-        redirect: window.location.href,
-      }),
-    })
+    window.location.href = `/user/login?search=${stringify({
+      redirect: window.location.href,
+    })}`
   }
 }
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const { initialState, setInitialState } = useModel('@@initialState')
 
-  const onMenuClick = useCallback((event: ClickParam) => {
+  const onMenuClick = useCallback((event: any) => {
     const { key } = event
     if (key === 'logout') {
-      setInitialState({ ...initialState, currentUser: undefined })
+      setInitialState({ settings: initialState?.settings })
       loginOut()
       return
     }
@@ -60,9 +56,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     return loading
   }
 
-  const { currentUser } = initialState
+  const { admin } = initialState
 
-  if (!currentUser || !currentUser.name) {
+  if (!admin) {
     return loading
   }
 
@@ -91,13 +87,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar
-          size="small"
-          className={styles.avatar}
-          src={currentUser.avatar}
-          alt="avatar"
-        />
-        <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+        <span className={`${styles.name} anticon`}>{admin.username}</span>
       </span>
     </HeaderDropdown>
   )

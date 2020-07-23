@@ -1,9 +1,5 @@
 import { Request, Response } from 'express'
 
-function getFakeCaptcha(req: Request, res: Response) {
-  return res.json('captcha-xxx')
-}
-
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env
 
 /**
@@ -20,7 +16,7 @@ const getAccess = () => {
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // 支持值为 Object 和 Array
-  'GET /api/currentUser': (req: Request, res: Response) => {
+  'GET /api/admin': (req: Request, res: Response) => {
     if (!getAccess()) {
       res.status(401).send({
         data: {
@@ -185,6 +181,4 @@ export default {
       path: '/base/category/list',
     })
   },
-
-  'GET  /api/login/captcha': getFakeCaptcha,
 }

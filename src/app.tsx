@@ -8,7 +8,7 @@ import defaultSettings from '../config/defaultSettings'
 
 export async function getInitialState(): Promise<{
   admin?: ADMIN.Response
-  settings: LayoutSettings
+  settings?: LayoutSettings
 }> {
   // 如果是登录页面，不执行
   let admin
