@@ -20,7 +20,7 @@ const loginOut = async () => {
   const { redirect } = getPageQuery()
   local.del('token').del('admin')
   // Note: There may be security issues, please note
-  if (window.location.pathname !== '/user/login' && !redirect) {
+  if (window.location.pathname !== '/login' && !redirect) {
     window.location.href = `/user/login?search=${stringify({
       redirect: window.location.href,
     })}`

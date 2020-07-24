@@ -36,13 +36,17 @@ const replaceGoto = () => {
 const Login: React.FC<{}> = () => {
   const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = async (values: ADMIN.LoginRequest) => {
+  const handleSubmit = (values: ADMIN.LoginRequest) => {
     setSubmitting(true)
-    const { token, admin } = await login({ ...values })
-    local.set('token', token).set('admin', admin)
-    message.success('登录成功！')
-    replaceGoto()
-    setSubmitting(false)
+    login({ ...values })
+      .then(({ token, admin }) => {
+        local.set('token', token).set('admin', admin)
+        message.success('登录成功！')
+        replaceGoto()
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
   }
 
   return (

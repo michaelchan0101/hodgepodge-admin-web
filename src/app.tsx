@@ -12,10 +12,10 @@ export async function getInitialState(): Promise<{
 }> {
   // 如果是登录页面，不执行
   let admin
-  if (history.location.pathname !== '/user/login') {
+  if (history.location.pathname !== '/login') {
     admin = local.get('admin')
     if (!admin) {
-      history.push('/user/login')
+      history.push('/login')
     }
   }
   return {

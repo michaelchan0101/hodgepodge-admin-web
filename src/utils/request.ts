@@ -27,6 +27,11 @@ const errorHandler = (error: ResponseError) => {
       message: '请求错误',
       description: data.error.message,
     })
+
+    if (data.error.code === 10005) {
+      local.del('token').del('admin')
+      window.location.href = '/login'
+    }
   } else if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText
     const { status, url } = response
@@ -40,7 +45,8 @@ const errorHandler = (error: ResponseError) => {
       message: '网络异常',
     })
   }
-  return data || response
+  throw data || response
+  // return data || response
 }
 
 const request = extend({
