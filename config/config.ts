@@ -34,39 +34,27 @@ export default defineConfig({
     {
       path: '/login',
       layout: false,
-      name: 'login',
       component: './Login',
-    },
-
-    {
-      path: '/welcome',
-      name: 'welcome',
-      icon: 'smile',
-      component: './Welcome',
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      icon: 'crown',
-      component: './Admin',
-      routes: [
-        {
-          path: '/admin/sub-page',
-          name: 'sub-page',
-          icon: 'smile',
-          component: './Welcome',
-        },
-      ],
     },
     {
       name: 'category',
-      icon: '',
+      icon: 'BarsOutlined',
       path: '/category',
       component: './Category',
     },
     {
+      path: '/article/:action(create|edit)',
+      component: './Article/create',
+    },
+    {
+      name: 'article',
+      icon: 'CodeOutlined',
+      path: '/article',
+      component: './Article',
+    },
+    {
       path: '/',
-      redirect: '/welcome',
+      redirect: '/category',
     },
     {
       component: './404',

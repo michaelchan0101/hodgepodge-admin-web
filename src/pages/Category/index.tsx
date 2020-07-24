@@ -123,7 +123,7 @@ const TableList: React.FC<{}> = () => {
         headerTitle="分类列表"
         actionRef={actionRef}
         search={false}
-        rowKey="key"
+        rowKey="id"
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
             <PlusOutlined /> 新建
@@ -146,7 +146,6 @@ const TableList: React.FC<{}> = () => {
               }
             }
           }}
-          rowKey="key"
           type="form"
           columns={columns}
         />
