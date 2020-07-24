@@ -29,7 +29,7 @@ const handleUpdate = async (id: number, fields: Category.CreateRequest) => {
   try {
     await updateCategory(id, {
       name: fields.name,
-      isShowInMenu: fields.isShowInMenu,
+      isShowInMenu: !!fields.isShowInMenu,
       sort: fields.sort,
     })
     hide()
@@ -45,8 +45,13 @@ const handleUpdate = async (id: number, fields: Category.CreateRequest) => {
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false)
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false)
-  const [stepFormValues, setStepFormValues] = useState<Category.Response>()
+  const [stepFormValues, setStepFormValues] = useState<{
+    category: Category.Response | null
+    visible: boolean
+  }>({
+    category: null,
+    visible: false,
+  })
   const actionRef = useRef<ActionType>()
   const columns: ProColumns<Category.Response>[] = [
     {
@@ -102,8 +107,7 @@ const TableList: React.FC<{}> = () => {
         <>
           <a
             onClick={() => {
-              handleUpdateModalVisible(true)
-              setStepFormValues(record)
+              setStepFormValues({ category: record, visible: true })
             }}
           >
             修改
@@ -147,24 +151,22 @@ const TableList: React.FC<{}> = () => {
           columns={columns}
         />
       </CreateForm>
-      {stepFormValues ? (
+      {stepFormValues.category ? (
         <UpdateForm
           onSubmit={async value => {
-            const success = await handleUpdate(stepFormValues?.id, value)
+            const success = await handleUpdate(stepFormValues.category?.id || 0, value)
             if (success) {
-              handleUpdateModalVisible(false)
-              setStepFormValues(undefined)
+              setStepFormValues({ category: null, visible: false })
               if (actionRef.current) {
                 actionRef.current.reload()
               }
             }
           }}
           onCancel={() => {
-            handleUpdateModalVisible(false)
-            setStepFormValues(undefined)
+            setStepFormValues({ category: null, visible: false })
           }}
-          modalVisible={updateModalVisible}
-          category={stepFormValues}
+          modalVisible={stepFormValues.visible}
+          category={stepFormValues.category}
         />
       ) : null}
     </PageContainer>
