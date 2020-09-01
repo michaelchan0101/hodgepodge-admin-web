@@ -1,41 +1,25 @@
 import React, { useState, ChangeEvent } from 'react'
-import { Input, Form, message } from 'antd'
-import marked from 'marked'
+import { Input, Form, message, PageHeader, Button } from 'antd'
 import { local } from 'webstorage-utils'
-import Button from 'antd/es/button'
-import PageHeader from 'antd/es/page-header'
 import { createArticle } from '@/services/article'
 import styles from './style.less'
 import CategorySelector from './components/CategorySelector'
+import Editor from './components/Editor'
 
 const CONTENT_CACHE_KEY = 'CREATE_ARTICLE_CONTENT'
 const TITLE_CACHE_KEY = 'CREATE_ARTICLE_TITLE'
 const CATEGORY_CACHE_KEY = 'CREATE_ARTICLE_CATEGORY'
 
-const CreateAndUpdateArticle: React.FC<{}> = () => {
+export default () => {
   const [form] = Form.useForm()
   const [content, setContent] = useState<string>(local.get(CONTENT_CACHE_KEY) ?? '')
   const [title, setTitle] = useState(local.get(TITLE_CACHE_KEY) ?? '')
   const [categoryId, setCategoryId] = useState<number | null>(
     local.get(CATEGORY_CACHE_KEY) ?? null,
   )
-  const [contentHtml, setContentHtml] = useState(content ? marked(content) : '')
   const updateContent = (text: string) => {
     local.set(CONTENT_CACHE_KEY, text)
     setContent(text)
-    setContentHtml(marked(text))
-  }
-  const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    updateContent(event.target.value)
-
-    // const now = Date.now()
-    // if (md.updated && now - md.updated > 500) {
-    //   clearTimeout(timer)
-    //   updateContent(event.target.value)
-    // } else {
-    //   clearTimeout(timer)
-    //   timer = setTimeout(updateContent.bind(null, event.target.value), 500)
-    // }
   }
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     local.set(TITLE_CACHE_KEY, event.target.value)
@@ -79,7 +63,6 @@ const CreateAndUpdateArticle: React.FC<{}> = () => {
     setCategoryId(null)
     setTitle('')
     setContent('')
-    setContentHtml('')
   }
   return (
     <>
@@ -104,8 +87,8 @@ const CreateAndUpdateArticle: React.FC<{}> = () => {
           onChange={handleTitleChange}
           value={title}
         />
-
-        <div className={styles.mdContainer}>
+        <Editor onChange={updateContent} content={content} />
+        {/* <div className={styles.mdContainer}>
           <Input.TextArea
             className={styles.editor}
             autoSize={{ minRows: 50 }}
@@ -116,10 +99,8 @@ const CreateAndUpdateArticle: React.FC<{}> = () => {
             className={styles.review}
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
-        </div>
+        </div> */}
       </Form>
     </>
   )
 }
-
-export default CreateAndUpdateArticle
