@@ -10,3 +10,11 @@ export async function listArticles(page = 1, limit = 20) {
     success: true,
   }
 }
+
+export async function createArticle(data: Article.CreateRequest) {
+  const article = await request<Article.Response>('/api/admin/v1.0/articles', {
+    method: 'POST',
+    data,
+  })
+  return article
+}

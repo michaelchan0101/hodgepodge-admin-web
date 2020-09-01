@@ -9,6 +9,11 @@ declare namespace Article {
     createdAt: string
     updatedAt: string
   }
+  export interface CreateRequest {
+    categoryId: number
+    title: string
+    content: string
+  }
 
   export interface ListRequest {
     categoryId?: number
