@@ -23,7 +23,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
     <Select
       placeholder="请选择分类"
       className={className}
-      defaultValue={selectId}
+      value={selectId ?? undefined}
       onChange={onChange}
     >
       {categories.map(category => (
