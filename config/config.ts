@@ -43,8 +43,14 @@ export default defineConfig({
       component: './Category',
     },
     {
-      path: '/article/:action(create|edit)',
+      exact: true,
+      path: '/article/create',
       component: './Article/create',
+    },
+    {
+      exact: true,
+      path: '/article/:id(\\d+)',
+      component: './Article/edit',
     },
     {
       name: 'article',

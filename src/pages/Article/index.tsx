@@ -35,7 +35,7 @@ const TableList: React.FC<{}> = () => {
         <>
           <a
             onClick={() => {
-              history.push(`/article/edit?id=${record.id}`)
+              history.push(`/article/${record.id}`)
             }}
           >
             修改

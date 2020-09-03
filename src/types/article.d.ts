@@ -4,7 +4,7 @@ declare namespace Article {
     categoryId: number
     title: string
     content?: string
-    originalContent?: string
+    originalContent: string
     category?: CategoryResponse
     createdAt: string
     updatedAt: string
