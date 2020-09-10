@@ -32,3 +32,7 @@ export const updateArticle = async (id: number, data: Article.CreateRequest) => 
   )
   return article
 }
+
+export const deleteArticle = async (id: number) => {
+  return request.delete(`/api/admin/v1.0/articles/${id}`)
+}

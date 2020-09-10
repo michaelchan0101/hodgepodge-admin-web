@@ -1,14 +1,25 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 import React, { useRef } from 'react'
 import { PageContainer } from '@ant-design/pro-layout'
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table'
 
-import { listArticles } from '@/services/article'
+import { listArticles, deleteArticle } from '@/services/article'
 import { history } from 'umi'
 
 const TableList: React.FC<{}> = () => {
   const actionRef = useRef<ActionType>()
+
+  const handleDelete = async (id: number) => {
+    const hide = message.loading('删除中......')
+    try {
+      await deleteArticle(id)
+      message.success('删除成功')
+      actionRef.current?.reload()
+    } finally {
+      hide()
+    }
+  }
   const columns: ProColumns<Article.Response>[] = [
     {
       title: '标题',
@@ -31,15 +42,25 @@ const TableList: React.FC<{}> = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => (
+      render: (_, article) => (
         <>
-          <a
+          <Button
+            type="link"
             onClick={() => {
-              history.push(`/article/${record.id}`)
+              history.push(`/article/${article.id}`)
             }}
           >
             修改
-          </a>
+          </Button>
+          <Button
+            type="link"
+            danger
+            onClick={() => {
+              handleDelete(article.id)
+            }}
+          >
+            删除
+          </Button>
         </>
       ),
     },
