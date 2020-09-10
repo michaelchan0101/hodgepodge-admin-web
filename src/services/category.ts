@@ -25,3 +25,7 @@ export async function updateCategory(id: number, data: Category.CreateRequest) {
     data,
   })
 }
+
+export async function deleteCategory(id: number) {
+  return request.delete(`/api/admin/v1.0/categories/${id}`)
+}

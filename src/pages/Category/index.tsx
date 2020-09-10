@@ -4,7 +4,12 @@ import React, { useState, useRef } from 'react'
 import { PageContainer } from '@ant-design/pro-layout'
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table'
 
-import { listCategories, createCategory, updateCategory } from '@/services/category'
+import {
+  listCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from '@/services/category'
 import CreateForm from './components/CreateForm'
 import UpdateForm from './components/UpdateForm'
 
@@ -53,6 +58,17 @@ const TableList: React.FC<{}> = () => {
     visible: false,
   })
   const actionRef = useRef<ActionType>()
+
+  const handleDelete = async (id: number) => {
+    const hide = message.loading('删除中......')
+    try {
+      await deleteCategory(id)
+      message.success('删除成功')
+      actionRef.current?.reload()
+    } finally {
+      hide()
+    }
+  }
   const columns: ProColumns<Category.Response>[] = [
     {
       title: '名称',
@@ -103,15 +119,25 @@ const TableList: React.FC<{}> = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => (
+      render: (_, category) => (
         <>
-          <a
+          <Button
+            type="link"
             onClick={() => {
-              setStepFormValues({ category: record, visible: true })
+              setStepFormValues({ category, visible: true })
             }}
           >
             修改
-          </a>
+          </Button>
+          <Button
+            type="link"
+            danger
+            onClick={() => {
+              handleDelete(category.id)
+            }}
+          >
+            删除
+          </Button>
         </>
       ),
     },
@@ -141,9 +167,7 @@ const TableList: React.FC<{}> = () => {
             const success = await handleCreate(value)
             if (success) {
               handleModalVisible(false)
-              if (actionRef.current) {
-                actionRef.current.reload()
-              }
+              actionRef.current?.reload()
             }
           }}
           type="form"
@@ -156,9 +180,7 @@ const TableList: React.FC<{}> = () => {
             const success = await handleUpdate(stepFormValues.category?.id || 0, value)
             if (success) {
               setStepFormValues({ category: null, visible: false })
-              if (actionRef.current) {
-                actionRef.current.reload()
-              }
+              actionRef.current?.reload()
             }
           }}
           onCancel={() => {
