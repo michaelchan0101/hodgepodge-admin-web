@@ -9,4 +9,16 @@ export const createAdmin = async (data: ADMIN.CreateRequest) =>
 export const updateAdminPassword = async (
   id: number,
   data: ADMIN.UpdatePasswordRequest,
-) => request.post<ADMIN.Response>(`/api/admin/v1.0/admins/${id}/password`, { data })
+) => request.patch<ADMIN.Response>(`/api/admin/v1.0/admins/${id}/password`, { data })
+
+export const listAdmins = async () => {
+  const { admins } = await request.get<ADMIN.ListResponse>('/api/admin/v1.0/admins')
+  return {
+    data: admins,
+    total: admins.length,
+    success: true,
+  }
+}
+
+export const deleteAdmin = async (id: number) =>
+  request.delete<ADMIN.Response>(`/api/admin/v1.0/admins/${id}`)

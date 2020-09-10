@@ -12,7 +12,7 @@ export default defineConfig({
     hmr: true,
   },
   layout: {
-    name: 'Zn 大杂烩',
+    name: 'Zn 大杂烩 - 管理后台',
     locale: true,
     siderWidth: 208,
   },
@@ -35,6 +35,12 @@ export default defineConfig({
       path: '/login',
       layout: false,
       component: './Login',
+    },
+    {
+      name: 'admin',
+      icon: 'UserOutlined',
+      path: '/admin',
+      component: './Admin/index',
     },
     {
       name: 'category',

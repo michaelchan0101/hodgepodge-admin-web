@@ -20,7 +20,10 @@ declare namespace ADMIN {
     password: string
   }
   export interface UpdatePasswordRequest {
-    username: string
     password: string
+  }
+
+  export interface ListResponse {
+    admins: Response[]
   }
 }
