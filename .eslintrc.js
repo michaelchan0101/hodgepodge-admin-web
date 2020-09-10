@@ -18,6 +18,7 @@ module.exports = {
     jasmine: true,
   },
   rules: {
+    'prefer-promise-reject-errors': 'off',
     'react/jsx-wrap-multilines': 0,
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
